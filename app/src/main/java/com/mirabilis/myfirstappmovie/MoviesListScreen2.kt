@@ -20,75 +20,85 @@ import androidx.compose.ui.unit.sp
 import com.mirabilis.myfirstappmovie.entity.Movie
 import com.mirabilis.myfirstappmovie.ui.theme.MyFirstAppMovieTheme
 
+
+
 @Composable
-fun MoviesListScreen() {
-    Column(
+
+fun MoviesListScreen2() {
+    Column (
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-    ) {
+
+    ){
         Text(
             style = TextStyle(
                 fontSize = 24.sp,
                 fontWeight = FontWeight(600),
-                color = Color.DarkGray
+                color = Color.Red
             ),
-            text = "Movies"
+            text = "Horror Movies"
         )
-        MoviesList()
+        MoviesList2()
     }
 }
 
 @Composable
-fun MovieItem(movie: Movie) {
-    Row(
-       modifier = Modifier
-           .fillMaxWidth()
-           .wrapContentHeight()
-           .padding(8.dp)
-    ) {
-        Text(movie.id.toString())
+fun MovieItem2(movie: Movie){
+    Row (
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(8.dp)
+
+    ){
+        Text(
+            movie.id.toString(),
+            style = TextStyle(
+                color = Color.Blue
+            )
+        )
         Text(movie.name)
-
-
     }
 }
+       
 
 @Composable
-fun MoviesList() {
+fun MoviesList2 (){
     val movies = listOf(
-        Movie(1, "Poderoso Chefão"),
-        Movie(2, "Senhor dos Anéis"),
-        Movie(3, "Pulp fiction"),
-        Movie(4, "Pulp fiction")
-
+        Movie(1," - O Exorcista"),
+        Movie(2," - O Iluminado"),
+        Movie(3," - Alien Oitavo Passageiro"),
+        Movie(4," - Halloween 1978"),
+        Movie(5," - Hereditario"),
+        Movie(6," - Enigma de Outro Mundo")
     )
-
-    LazyColumn {
-        items(movies) { MovieItem(movie = it) }
+    LazyColumn{
+        items(movies) { MovieItem2(movie = it) }
     }
 }
 
 @Preview
 @Composable
-fun PreviewMovieList() {
-    MyFirstAppMovieTheme {
-        MoviesList()
+
+fun PreviewMovieList2(){
+    MyFirstAppMovieTheme{
+        MoviesList2()
     }
 }
 
 @Preview
 @Composable
-fun PreviewMovieItem() {
+fun PreviewMovieItem2(){
     MyFirstAppMovieTheme {
-        MovieItem(movie = Movie(1, "Nome do Filme"))
+       MovieItem2(movie = Movie(1,"Nome do Filme"))
     }
 }
 
 @Preview
 @Composable
-fun PreviewMoviesListScreen() {
+fun PreviewMoviesListScreen2(){
     MyFirstAppMovieTheme {
-        MoviesListScreen()
+        MoviesListScreen2()
     }
 }
