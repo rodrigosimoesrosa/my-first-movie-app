@@ -33,6 +33,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MovieListScreenPreview() {
     MyFirstAppMovieTheme {
-        MoviesListScreen()
+        MoviesListScreen2()
     }
 }

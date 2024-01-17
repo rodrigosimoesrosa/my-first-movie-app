@@ -1,3 +1,6 @@
 package com.mirabilis.myfirstappmovie.entity
 
-data class Movie(val id: Int, val name: String)
+/**
+ * Armazena em memoria as informações dos filmes
+ */
+data class Movie(val id: Int, val name: String, val url: String? = null)
