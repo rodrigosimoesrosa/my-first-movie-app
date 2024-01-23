@@ -20,75 +20,75 @@ import androidx.compose.ui.unit.sp
 import com.mirabilis.myfirstappmovie.entity.Movie
 import com.mirabilis.myfirstappmovie.ui.theme.MyFirstAppMovieTheme
 
-@Composable
-fun MoviesListScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text(
-            style = TextStyle(
-                fontSize = 24.sp,
-                fontWeight = FontWeight(600),
-                color = Color.DarkGray
-            ),
-            text = "Movies"
-        )
-        MoviesList()
-    }
-}
-
-@Composable
-fun MovieItem(movie: Movie) {
-    Row(
-       modifier = Modifier
-           .fillMaxWidth()
-           .wrapContentHeight()
-           .padding(8.dp)
-    ) {
-        Text(movie.id.toString())
-        Text(movie.name)
-
-
-    }
-}
-
-@Composable
-fun MoviesList() {
-    val movies = listOf(
-        Movie(1, "Poderoso Chefão"),
-        Movie(2, "Senhor dos Anéis"),
-        Movie(3, "Pulp fiction"),
-        Movie(4, "Pulp fiction")
-
-    )
-
-    LazyColumn {
-        items(movies) { MovieItem(movie = it) }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewMovieList() {
-    MyFirstAppMovieTheme {
-        MoviesList()
-    }
-}
-
-@Preview
-@Composable
-fun PreviewMovieItem() {
-    MyFirstAppMovieTheme {
-        MovieItem(movie = Movie(1, "Nome do Filme"))
-    }
-}
-
-@Preview
-@Composable
-fun PreviewMoviesListScreen() {
-    MyFirstAppMovieTheme {
-        MoviesListScreen()
-    }
-}
+// @Composable
+// fun MoviesListScreen() {
+// Column(
+// modifier = Modifier
+// .fillMaxSize()
+// .padding(16.dp)
+// ) {
+// Text(
+// style = TextStyle(
+// fontSize = 24.sp,
+// fontWeight = FontWeight(600),
+// color = Color.DarkGray
+// ),
+// text = "Movies"
+// )
+// MoviesList()
+// }
+// }
+//
+// @Composable
+// fun MovieItem(movie: Movie) {
+// Row(
+// modifier = Modifier
+// .fillMaxWidth()
+// .wrapContentHeight()
+// .padding(8.dp)
+// ) {
+// Text(movie.id.toString())
+// Text(movie.name)
+//
+//
+// }
+// }
+//
+// @Composable
+// fun MoviesList() {
+// val movies = listOf(
+// Movie(1, "Poderoso Chefão"),
+// Movie(2, "Senhor dos Anéis"),
+// Movie(3, "Pulp fiction"),
+// Movie(4, "Pulp fiction")
+//
+// )
+//
+// LazyColumn {
+// items(movies) { MovieItem(movie = it) }
+// }
+// }
+//
+// @Preview
+// @Composable
+// fun PreviewMovieList() {
+// MyFirstAppMovieTheme {
+// MoviesList()
+// }
+// }
+//
+// @Preview
+// @Composable
+// fun PreviewMovieItem() {
+// MyFirstAppMovieTheme {
+// MovieItem(movie = Movie(1, "Nome do Filme"))
+// }
+// }
+//
+// @Preview
+// @Composable
+// fun PreviewMoviesListScreen() {
+// MyFirstAppMovieTheme {
+// MoviesListScreen()
+// }
+// }
