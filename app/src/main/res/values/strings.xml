@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyFirstAppMovie</string>
     <string name="text_do_icone_do_filme">Imagem do filme</string>
+    <string name="genres">Gêneros</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.mirabilis.myfirstappmovie
+package com.mirabilis.myfirstappmovie.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,14 +22,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.mirabilis.myfirstappmovie.entity.Movie
-import com.mirabilis.myfirstappmovie.ui.theme.MyFirstAppMovieTheme
+import com.mirabilis.myfirstappmovie.R
+import com.mirabilis.myfirstappmovie.domain.entity.Movie
+import com.mirabilis.myfirstappmovie.view.theme.MyFirstAppMovieTheme
 
 /**
  * Componente VISUAL que lida com a tela
  */
 @Composable
-fun MoviesListScreen2() {
+fun MoviesListScreen() {
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -67,7 +68,6 @@ fun MovieItemView(movie: Movie){
             color = Color.Red,
             fontWeight = FontWeight(1000)
         )
-
 
         /**
          * Se for par
@@ -169,7 +169,6 @@ fun MovieImageView(url: String?) {
 @Composable
 fun MoviesListView() {
 
-
     val movies = listOf(
         Movie(1," - O Exorcista", "William Friedkin", "Em Georgetown, Washington, uma atriz vai gradativamente tomando consciência que a sua filha de doze anos está tendo um comportamento completamente assustador. Deste modo, ela pede ajuda a um padre, que também um psiquiatra, e este chega a conclusão de que a garota está possuída pelo demônio. Ele solicita então a ajuda de um segundo sacerdote, especialista em exorcismo, para tentar livrar a menina desta terrível possessão.", "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4ucLGcXVVSVnsfkGtbLY4XAius8.jpg"),
         Movie(2," - O Iluminado", "Stanley Kubrick", "Durante o inverno, um homem é contratado para ficar como vigia em um hotel no Colorado e vai para lá com a esposa e seu filho. Porém, o contínuo isolamento começa a lhe causar problemas mentais sérios e ele vai se tornado cada vez mais agressivo e perigoso, ao mesmo tempo que seu filho passa a ter visões de acontecimentos ocorridos no passado, que também foram causados pelo isolamento excessivo.", "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nRj5511mZdTl4saWEPoj9QroTIu.jpg"),
@@ -220,6 +219,6 @@ fun PreviewMovieItem2(){
 @Composable
 fun PreviewMoviesListScreen2(){
     MyFirstAppMovieTheme {
-        MoviesListScreen2()
+        MoviesListScreen()
     }
 }

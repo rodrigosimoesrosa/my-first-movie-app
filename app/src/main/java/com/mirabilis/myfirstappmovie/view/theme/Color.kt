@@ -1,4 +1,4 @@
-package com.mirabilis.myfirstappmovie.ui.theme
+package com.mirabilis.myfirstappmovie.view.theme
 
 import androidx.compose.ui.graphics.Color
 

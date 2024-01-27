@@ -1,4 +1,4 @@
-package com.mirabilis.myfirstappmovie.ui.theme
+package com.mirabilis.myfirstappmovie.view.theme
 
 import android.app.Activity
 import android.os.Build
