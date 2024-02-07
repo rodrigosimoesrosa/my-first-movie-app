@@ -9,7 +9,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkProvider {
 
-    private fun retrofit(): Retrofit {
+    private const val AUTHORIZATION = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYmNlM2JlMDIwNWU0NDc5ZmIyNDQxNzBlZWU5NWU1NiIsInN1YiI6IjY1YTA3NDAyNDRlYTU0MDEyODJkYzFhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j7uhGgyMBzyafVhlIV5NGu7WQpXiQvVSNUMEWGHbU6o"
+    private const val URL_BASE = "https://api.themoviedb.org/3/"
+
+    private fun retrofit(
+        authorization: String = AUTHORIZATION,
+        urlBase: String = URL_BASE
+    ): Retrofit {
         val okHttpBuilder = OkHttpClient.Builder()
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -17,12 +23,13 @@ object NetworkProvider {
         okHttpBuilder.addInterceptor { chain ->
             val request: Request = chain.request().newBuilder().addHeader(
                 "Authorization",
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYmNlM2JlMDIwNWU0NDc5ZmIyNDQxNzBlZWU5NWU1NiIsInN1YiI6IjY1YTA3NDAyNDRlYTU0MDEyODJkYzFhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j7uhGgyMBzyafVhlIV5NGu7WQpXiQvVSNUMEWGHbU6o").build()
+                "Bearer $authorization"
+            ).build()
             chain.proceed(request)
         }
 
         return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(urlBase)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpBuilder.build())
             .build()
