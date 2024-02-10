@@ -1,4 +1,4 @@
-package com.mirabilis.myfirstappmovie.oldway.list
+package com.mirabilis.myfirstappmovie.oldway.genres
 
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView

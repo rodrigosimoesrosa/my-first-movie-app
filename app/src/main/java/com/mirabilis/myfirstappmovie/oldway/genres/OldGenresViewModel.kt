@@ -1,4 +1,4 @@
-package com.mirabilis.myfirstappmovie.oldway
+package com.mirabilis.myfirstappmovie.oldway.genres
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

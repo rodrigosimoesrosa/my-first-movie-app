@@ -2,9 +2,11 @@ package com.mirabilis.myfirstappmovie.data.network
 
 import com.mirabilis.myfirstappmovie.domain.entity.GetGenres
 import com.mirabilis.myfirstappmovie.domain.entity.NewMovie
+import com.mirabilis.myfirstappmovie.domain.entity.movies.genre.GetMovieByGenre
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * Interfaces fornecem funções/ações/metódos
@@ -20,6 +22,10 @@ interface API {
     @GET("movie/157336?language=pt-BR")
     fun getOldMovie(): Call<NewMovie>
 
+    @GET("discover/movie?language=pt-BR")
+    fun getOldMoviesByGenre(@Query("with_genres") id: Int): Call<GetMovieByGenre>
+
+    //https://api.themoviedb.org/3/discover/movie?api_key=###&with_genres=28
     @GET("genre/movie/list?language=pt-BR")
     fun getOldGenres(): Call<GetGenres>
 }
