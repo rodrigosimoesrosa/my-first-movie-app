@@ -24,7 +24,7 @@ class OldDataSource {
         return api.getOldGenres()
     }
 
-    fun getMoviesByGenre(id: Int = 28): Call<GetMovieByGenre> {
+    fun getMoviesByGenre(id: Int = 27): Call<GetMovieByGenre> {
         return api.getOldMoviesByGenre(id)
     }
 }
