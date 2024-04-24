@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnBack"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="4dp"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/asul_bold"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Poor Things" />
+
+    <ImageView
+        android:id="@+id/imagePoster"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@id/titleMovie"
+        app:layout_constraintStart_toStartOf="@id/titleMovie"
+        app:layout_constraintTop_toBottomOf="@+id/titleMovie"
+        tools:srcCompat="@drawable/poor_things" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dataLancamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/asul_bold"
+        android:text="@string/estreia"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagePoster"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dataLancamentoTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+
+        android:fontFamily="@font/asul_bold"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dataLancamento"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/popularidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/asul_bold"
+        android:text="@string/popularidade"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dataLancamentoTexto"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/popularidadeTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="@font/asul_bold"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/popularidade"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sinopse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/asul_bold"
+        android:text="@string/sinopse"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/titleMovie"
+        app:layout_constraintStart_toStartOf="@id/titleMovie"
+        app:layout_constraintTop_toBottomOf="@id/popularidadeTexto" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sinopseTexto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/asul"
+        android:maxLines="6"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sinopse"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Pobres Criaturas é um filme de romance e ficção científica dirigido por Yorgos Lanthimos e produzido por Emma Stone, que também atua no longa. Baseada no livro homônimo de Alasdair Grey e referenciando o clássico Frankenstein, a história se passa na Era Vitoriana e acompanha Bella Baxter (interpretada por Stone), trazida de volta à vida após seu cérebro ser substituído pelo do filho que ainda não nasceu. O experimento é realizado pelo doutor Godwin Baxter (Willem Dafoe), um cientista brilhante, porém nada ortodoxo. Querendo conhecer mais do mundo, a jovem foge com um advogado e viaja pelos continentes, exigindo igualdade e libertação. Além de Stone e Dafoe, o elenco também conta com Mark Ruffalo, Jerrod Carmichael, Ramy Youssef, Christopher Abbott, Margaret Qualley, Kathryn Hunter, Suzy Bemba e Wayne Brett." />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonFavorito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_star_big_on"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sinopseTexto"
+        app:layout_constraintVertical_bias="0.70" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

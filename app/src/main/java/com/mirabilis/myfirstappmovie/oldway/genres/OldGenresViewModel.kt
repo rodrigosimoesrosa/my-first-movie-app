@@ -3,7 +3,7 @@ package com.mirabilis.myfirstappmovie.oldway.genres
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mirabilis.myfirstappmovie.data.OldDataSource
+import com.mirabilis.myfirstappmovie.data.OldRemoteDataSource
 import com.mirabilis.myfirstappmovie.domain.entity.Genre
 import com.mirabilis.myfirstappmovie.domain.entity.GetGenres
 import retrofit2.Call
@@ -18,7 +18,7 @@ class OldGenresViewModel : ViewModel() {
     /**
      * Fonte de dados
      */
-    private val dataSource: OldDataSource = OldDataSource()
+    private val dataSource: OldRemoteDataSource = OldRemoteDataSource()
 
     /**
      * Cria objetos observáveis, que retornaram os valores para quem os observa

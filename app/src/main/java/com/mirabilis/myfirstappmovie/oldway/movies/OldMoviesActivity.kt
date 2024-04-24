@@ -1,55 +1,57 @@
 package com.mirabilis.myfirstappmovie.oldway.movies
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.mirabilis.myfirstappmovie.R
+import com.mirabilis.myfirstappmovie.databinding.ActivityOldMovieBinding
+import com.mirabilis.myfirstappmovie.domain.entity.Movie
+import com.mirabilis.myfirstappmovie.domain.entity.movies.genre.MovieByGenre
+import com.mirabilis.myfirstappmovie.oldway.movie.OldMovieActivity
 
 /**
- * Activity da tela de filmes do genero Horror
+ * Activity da tela de filmes
  */
 class OldMoviesActivity : AppCompatActivity() {
 
     //lateinit var adapter?
     private lateinit var adapter: MoviesAdapter
+
+    private val binding by lazy {
+        ActivityOldMovieBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_old_movie)
-
+        val genreId: Long = intent.extras?.getLong("genreId") ?: 27
 
         /**
          * Binding de todos os componentes visuais
          */
+        setContentView(binding.root)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        val btnTryAgain: Button = findViewById(R.id.btnTryAgain)
-        val progress: ProgressBar = findViewById(R.id.progress)
-
+        binding.btnBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
         /**
          * Criar o adapter que será responsavel pela lista na tela
          * Inicialmente criado com um array VAZIO
          */
-
-        this.adapter = MoviesAdapter(arrayOf())
-        recyclerView.adapter = adapter
+        this.adapter = MoviesAdapter(movies = arrayOf(), onClick = ::showMovieActivity)
+        binding.recyclerView.adapter = adapter
 
         val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
+        binding.recyclerView.layoutManager = layoutManager
 
 
         /**
          * Adiciona divisor entre cada item no recycler view (lista)
          */
-
-        recyclerView.addItemDecoration(
+        binding.recyclerView.addItemDecoration(
             DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         )
 
@@ -63,21 +65,21 @@ class OldMoviesActivity : AppCompatActivity() {
         /**
          * Cria a ação do botão try again
          */
-        btnTryAgain.setOnClickListener {
-            btnTryAgain.visibility = View.GONE
-            viewModel.loadMovies()
+        binding.btnTryAgain.setOnClickListener {
+            binding.btnTryAgain.visibility = View.GONE
+            viewModel.loadMovies(genreId)
         }
 
         /**
          * A activity inicia a observacao dos items observaveis do view model
          */
 
-        viewModel.getMovies().observe(this){ movies ->
+        viewModel.getMovies(genreId).observe(this) { movies ->
             adapter.setMovies(movies)
         }
 
         viewModel.isLoading().observe(this) { isLoading ->
-            progress.visibility = if (isLoading) {
+            binding.progress.visibility = if (isLoading) {
                 View.VISIBLE
             } else {
                 View.GONE
@@ -87,7 +89,7 @@ class OldMoviesActivity : AppCompatActivity() {
         viewModel.hasError().observe(this) {
             if (it == null) return@observe
 
-            btnTryAgain.visibility = View.VISIBLE
+            binding.btnTryAgain.visibility = View.VISIBLE
             val snackBar = Snackbar.make(
                 findViewById(R.id.oldMovieRoot),
                 "Ocorreu um erro ao baixar os filmes!",
@@ -96,5 +98,11 @@ class OldMoviesActivity : AppCompatActivity() {
             snackBar.setAction("Ok") {viewModel.clearError()}
             snackBar.show()
         }
+    }
+
+    fun showMovieActivity(movie: Movie) {
+        val intent = Intent(baseContext, OldMovieActivity::class.java)
+        intent.putExtra("movie", movie)
+        startActivity(intent)
     }
 }

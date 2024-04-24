@@ -3,18 +3,20 @@ package com.mirabilis.myfirstappmovie.oldway.movies
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mirabilis.myfirstappmovie.R
+import com.mirabilis.myfirstappmovie.databinding.OldMovieItemBinding
 import com.mirabilis.myfirstappmovie.domain.entity.Movie
 
-class MoviesAdapter(private var movies: Array<Movie>): RecyclerView.Adapter<MovieViewHolder>() {
+class MoviesAdapter(
+    private var movies: Array<Movie>,
+    private val onClick: (movie: Movie) -> Unit
+): RecyclerView.Adapter<MoviesViewHolder>() {
 
     /**
      * onCreateViewHolder que significa carrega em memoria o xml/layout e manda para o ViewHolder
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.old_movie_item, parent, false)
-        return MovieViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
+        val binding = OldMovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return  MoviesViewHolder(binding, onClick)
     }
 
     /**
@@ -27,9 +29,9 @@ class MoviesAdapter(private var movies: Array<Movie>): RecyclerView.Adapter<Movi
     /**
      * onBindViewHolder é o local onde conectamos os dados e o componente visual a ser criado
      */
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
        val movie: Movie = movies[position]
-       holder.txtTitleMovie.text = movie.name
+        holder.setMovie(movie)
     }
 
     /**

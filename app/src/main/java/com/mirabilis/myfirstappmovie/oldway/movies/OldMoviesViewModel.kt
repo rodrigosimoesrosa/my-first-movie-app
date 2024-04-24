@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mirabilis.myfirstappmovie.data.OldDataSource
+import com.mirabilis.myfirstappmovie.data.OldRemoteDataSource
 import com.mirabilis.myfirstappmovie.domain.entity.Movie
 import com.mirabilis.myfirstappmovie.domain.entity.movies.genre.GetMovieByGenre
 import com.mirabilis.myfirstappmovie.domain.entity.movies.genre.MovieByGenre
@@ -22,7 +22,7 @@ class OldMoviesViewModel: ViewModel() {
      * Fonte de dados
      */
 
-    private val dataSource: OldDataSource = OldDataSource()
+    private val dataSource: OldRemoteDataSource = OldRemoteDataSource()
 
 
     /**
@@ -31,7 +31,10 @@ class OldMoviesViewModel: ViewModel() {
      */
 
     private val _movies: MutableLiveData<List<Movie>> = MutableLiveData(listOf())
-    fun getMovies(): LiveData<List<Movie>> = _movies
+    fun getMovies(genreId: Long): LiveData<List<Movie>> {
+        loadMovies(genreId)
+        return _movies
+    }
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     fun isLoading(): LiveData<Boolean> = _loading
@@ -42,34 +45,30 @@ class OldMoviesViewModel: ViewModel() {
     fun clearError() { _error.postValue(null) }
 
     /**
-     * Inica o view model assim que ele for criado na ACTIVITY
-     */
-
-    init{
-        loadMovies()
-    }
-
-    /**
      * Funcao que carrega da fonte de dados os filmes e insere os valores recebidos da
      * internet dentro os objetos observaveis
      */
 
-    fun loadMovies() {
+    fun loadMovies(genreId: Long) {
         _loading.postValue(true)
 
-        dataSource.getMoviesByGenre().enqueue(object : Callback<GetMovieByGenre> {
+        dataSource.getMoviesByGenre(genreId).enqueue(object : Callback<GetMovieByGenre> {
             override fun onResponse(call: Call<GetMovieByGenre>, response: Response<GetMovieByGenre>) {
                 _loading.postValue(false)
                 if(response.isSuccessful){
                     val moviesByGenre: GetMovieByGenre? = response.body()
                     val results: List<MovieByGenre>? = moviesByGenre?.results
+                    Log.d("APP", "results $results")
                     val values: List<Movie>? = results?.map {
                         Movie(
                             id = it.id?.toInt() ?: 0,
                             name = it.title ?: "",
                             diretor = "",
                             sinopse = it.overview ?: "",
-                            url = it.posterPath ?: ""
+                            url = it.posterPath ?: "",
+                            popularity = it.popularity?.toDouble() ?: 0.0,
+                            releaseDate = it.releaseDate ?:""
+
                         )
                     }
 

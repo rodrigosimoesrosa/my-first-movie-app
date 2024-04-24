@@ -12,7 +12,10 @@ data class NewMovie (
     val belongsToCollection: Any? = null,
 
     val budget: Long,
+
+    @SerializedName("genre_ids")
     val genres: List<Genre>,
+
     val homepage: String,
     val id: Long,
 
