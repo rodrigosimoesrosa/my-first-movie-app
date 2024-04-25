@@ -35,7 +35,7 @@ class KeyValueData(val context: WeakReference<Context>, val name: String) {
             editor.apply()
         */
 
-        with (sharedPref.edit()) {
+        with(sharedPref.edit()) {
             when (value) {
                 is Boolean -> putBoolean(key, value)
                 is Int -> putInt(key, value)
@@ -57,10 +57,25 @@ class KeyValueData(val context: WeakReference<Context>, val name: String) {
         return sharedPref.getLong(key, 0L)
     }
 
+    fun readBoolean(key: String): Boolean? {
+        val sharedPref = getSharedPreferences() ?: return null
+        return sharedPref.getBoolean(key, false)
+    }
+
+    fun readInt(key: String): Int? {
+        val sharedPref = getSharedPreferences() ?: return null
+        return sharedPref.getInt(key, 0)
+    }
+
+    fun readFloat(key: String): Float?{
+        val sharedPref = getSharedPreferences() ?: return null
+        return sharedPref.getFloat(key, 0F)
+    }
+
     fun clear(): Boolean {
         val sharedPref = getSharedPreferences() ?: return false
 
-        return with (sharedPref.edit()) {
+        return with(sharedPref.edit()) {
             clear()
             commit()
         }
@@ -69,7 +84,7 @@ class KeyValueData(val context: WeakReference<Context>, val name: String) {
     fun remove(key: String): Boolean {
         val sharedPref = getSharedPreferences() ?: return false
 
-        return with (sharedPref.edit()) {
+        return with(sharedPref.edit()) {
             remove(key)
             commit()
         }
