@@ -1,6 +1,7 @@
 package com.mirabilis.myfirstappmovie.data
 
 import com.mirabilis.myfirstappmovie.data.entity.SignInResponse
+import com.mirabilis.myfirstappmovie.data.entity.SignOutResponse
 import com.mirabilis.myfirstappmovie.data.network.API
 import com.mirabilis.myfirstappmovie.data.network.NetworkProvider
 import com.mirabilis.myfirstappmovie.domain.entity.GetGenres
@@ -10,6 +11,7 @@ import com.mirabilis.myfirstappmovie.domain.entity.movies.genre.GetMovieByGenre
 import kotlinx.coroutines.delay
 import retrofit2.Call
 import java.lang.Thread.sleep
+import kotlin.random.Random
 
 /**
  * Fonte de dados
@@ -65,9 +67,24 @@ class OldRemoteDataSource {
      */
     suspend fun signIn(email: String, password: String): SignInResponse {
         delay(2000)
-        return SignInResponse(
-            email = email,
-            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJyb2RyaWdvQGdhbWVnb2xmLmNvbSIsImV4cCI6MTc0NDg0MDQ3NywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6MzI3NzQiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMjc3NCJ9.Mu5c-rPoMd1iRz-UIGej2p0hl-0_0xuzr3vkVpgfQ9M"
-        )
+        if (Random.nextBoolean()) {
+            return SignInResponse(
+                email = email,
+                token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJyb2RyaWdvQGdhbWVnb2xmLmNvbSIsImV4cCI6MTc0NDg0MDQ3NywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6MzI3NzQiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMjc3NCJ9.Mu5c-rPoMd1iRz-UIGej2p0hl-0_0xuzr3vkVpgfQ9M"
+            )
+        }
+
+        throw Exception("Simulação de erro no servidor!")
+    }
+
+    suspend fun signOut(token: String?): SignOutResponse {
+        delay(2000)
+        if (Random.nextBoolean()) {
+            return SignOutResponse(
+                success = true
+            )
+        }
+
+        throw Exception("Simulação de erro no servidor!")
     }
 }

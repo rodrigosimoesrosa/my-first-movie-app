@@ -6,29 +6,30 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.mirabilis.myfirstappmovie.databinding.FragmentSettingsBinding
+import com.mirabilis.myfirstappmovie.extension.gone
+import com.mirabilis.myfirstappmovie.extension.visible
 import com.mirabilis.myfirstappmovie.oldway.genres.OldGenresActivity
 import com.mirabilis.myfirstappmovie.oldway.signin.OldSignInActivity
+import com.mirabilis.myfirstappmovie.oldway.signin.OldSignInViewModel
 import com.mirabilis.myfirstappmovie.oldway.signup.OldSignUpActivity
 import com.mirabilis.myfirstappmovie.oldway.terms.OldTermsActivity
 
 class SettingsFragment : Fragment() {
+
 
     private val binding by lazy {
         FragmentSettingsBinding.inflate(layoutInflater)
     }
 
     /**
-     * Criar activity Termos de uso  - ok
-        * ScrollView com um texto - ok
-     * Criar activity SignUp (Cadastro de usuário) - ok
-     *  * Email (Olhar o OldSignInActivity) - ok
-     *  * Senha (Olhar o OldSignInActivity) - ok
-     *  * Confirmar Senha (Olhar o OldSignInActivity) - ok
-     *  * CheckBox Aceita os termos - ok
-     *  * Botão confirmar (Cadastrar) - ok
+     * Cria o view model
      */
+    val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,12 +49,34 @@ class SettingsFragment : Fragment() {
 
         binding.btnTerms.setOnClickListener { showTermsActivity() }
 
-        binding.btnSignOut.setOnClickListener {
+        binding.btnSignOut.setOnClickListener { viewModel.signOut() }
 
+        binding.btnProfile.setOnClickListener {}
+
+        viewModel.isSuccess().observe(viewLifecycleOwner) { success ->
+            if (success == null) return@observe
+
+            if (success) {
+                binding.loggedUser.gone()
+                binding.noLoggedUser.visible()
+            }
         }
 
-        binding.btnProfile.setOnClickListener {
+        viewModel.hasError().observe(viewLifecycleOwner) { error ->
+            if (error == null) return@observe
 
+            val snackBar = Snackbar.make(
+                binding.root,
+                error.message!!,
+                Snackbar.LENGTH_SHORT
+            )
+            snackBar.setAction("Ok") { viewModel.clearError() }
+            snackBar.show()
+        }
+
+        viewModel.isLoading().observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading == null) return@observe
+            if (isLoading) binding.progressBar.visible() else binding.progressBar.gone()
         }
     }
 
@@ -85,6 +108,13 @@ class SettingsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("APP", "SettingsFragment onResume")
+        if (viewModel.isAuthorized()) {
+            binding.loggedUser.visible()
+            binding.noLoggedUser.gone()
+        } else {
+            binding.loggedUser.gone()
+            binding.noLoggedUser.visible()
+        }
     }
 
     override fun onStart() {

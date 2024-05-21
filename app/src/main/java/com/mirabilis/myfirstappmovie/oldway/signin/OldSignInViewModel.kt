@@ -22,14 +22,18 @@ class OldSignInViewModel: ViewModel() {
      */
     private val remoteDataSource = OldRemoteDataSource()
 
+
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     fun isLoading(): LiveData<Boolean> = _loading
+
 
     private val _success: MutableLiveData<Boolean> = MutableLiveData()
     fun isSuccess(): LiveData<Boolean> = _success
 
+
     private val _error: MutableLiveData<Throwable?> = MutableLiveData()
     fun hasError(): LiveData<Throwable?> = _error
+
 
     fun clearError() { _error.postValue(null) }
 
@@ -39,17 +43,27 @@ class OldSignInViewModel: ViewModel() {
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             _loading.postValue(true)
-            val response = remoteDataSource.signIn(email, password)
-            Log.d("APP", "Sign In ViewModel " + response.token)
-            if (response.email.isNullOrEmpty() || response.token.isNullOrEmpty()) {
-                _success.postValue(false)
-                _error.postValue(Throwable("O login não deu certo!"))
-                return@launch
-            }
 
-            OldLocalDataSource.dataSource?.saveUser(response.email, response.token)
-            _success.postValue(true)
-            _loading.postValue(false)
+            try {
+
+                val response = remoteDataSource.signIn(email, password)
+
+                Log.d("APP", "Sign In ViewModel " + response.token)
+                if (response.email.isNullOrEmpty() || response.token.isNullOrEmpty()) {
+                    _success.postValue(false)
+                    _error.postValue(Throwable("O login não deu certo!"))
+                    return@launch
+                }
+
+                OldLocalDataSource.dataSource?.saveUser(response.email, response.token)
+
+                _success.postValue(true)
+            } catch (e: Exception) {
+                _success.postValue(false)
+                _error.postValue(e)
+            } finally {
+                _loading.postValue(false)
+            }
         }
     }
 }

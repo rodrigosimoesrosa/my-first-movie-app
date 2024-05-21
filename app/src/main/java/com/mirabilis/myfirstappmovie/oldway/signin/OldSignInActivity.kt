@@ -3,15 +3,16 @@ package com.mirabilis.myfirstappmovie.oldway.signin
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.snackbar.Snackbar
-import com.mirabilis.myfirstappmovie.R
 import com.mirabilis.myfirstappmovie.databinding.OldSigninActivityBinding
-import com.mirabilis.myfirstappmovie.oldway.movies.OldMoviesViewModel
 import com.mirabilis.myfirstappmovie.validator.EmailValidator
 import com.mirabilis.myfirstappmovie.validator.PasswordValidator
+
 
 class OldSignInActivity : AppCompatActivity() {
 
@@ -50,6 +51,10 @@ class OldSignInActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
+
+            binding.txtEmail.onEditorAction(EditorInfo.IME_ACTION_DONE)
+            binding.txtPassword.onEditorAction(EditorInfo.IME_ACTION_DONE)
+
             viewModel.signIn(
                 binding.txtEmail.text.toString(),
                 binding.txtPassword.text.toString()
@@ -68,12 +73,18 @@ class OldSignInActivity : AppCompatActivity() {
             if (it == null) return@observe
 
             val snackBar = Snackbar.make(
-                findViewById(R.id.oldMovieRoot),
+                binding.root,
                 it.message!!,
                 Snackbar.LENGTH_SHORT
             )
             snackBar.setAction("Ok") { viewModel.clearError() }
             snackBar.show()
+        }
+
+        viewModel.isSuccess().observe(this) { result ->
+            if (result == null) return@observe
+
+            if(result) { finish() }
         }
     }
 
