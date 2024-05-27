@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mirabilis.myfirstappmovie.data.OldLocalDataSource
+import com.mirabilis.myfirstappmovie.data.OldLocalUserDataSource
 import com.mirabilis.myfirstappmovie.data.OldRemoteDataSource
 import kotlinx.coroutines.launch
 
@@ -22,8 +22,8 @@ class SettingsViewModel : ViewModel() {
     fun isLoading(): LiveData<Boolean> = _loading
 
     fun isAuthorized(): Boolean {
-        val email = OldLocalDataSource.dataSource?.getEmail()
-        val token = OldLocalDataSource.dataSource?.getToken()
+        val email = OldLocalUserDataSource.dataSource?.getEmail()
+        val token = OldLocalUserDataSource.dataSource?.getToken()
         return email !== null && token !== null
     }
 
@@ -33,11 +33,11 @@ class SettingsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 _loading.postValue(true)
-                val token = OldLocalDataSource.dataSource?.getToken()
+                val token = OldLocalUserDataSource.dataSource?.getToken()
                 val response = remoteDataSource.signOut(token)
 
                 if (response.success) {
-                    OldLocalDataSource.dataSource?.deleteUser()
+                    OldLocalUserDataSource.dataSource?.deleteUser()
                 }
 
                 _success.postValue(response.success)

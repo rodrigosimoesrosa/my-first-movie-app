@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.snackbar.Snackbar
 import com.mirabilis.myfirstappmovie.databinding.OldSigninActivityBinding
+import com.mirabilis.myfirstappmovie.oldway.signup.OldSignUpViewModel
 import com.mirabilis.myfirstappmovie.validator.EmailValidator
 import com.mirabilis.myfirstappmovie.validator.PasswordValidator
 

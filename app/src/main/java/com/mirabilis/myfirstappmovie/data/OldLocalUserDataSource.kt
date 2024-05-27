@@ -4,7 +4,7 @@ import android.content.Context
 import com.mirabilis.myfirstappmovie.data.keyvalue.KeyValueData
 import java.lang.ref.WeakReference
 
-class OldLocalDataSource(val context: WeakReference<Context>) {
+class OldLocalUserDataSource(val context: WeakReference<Context>) {
 
     private val keyEmail = "email"
     private val keyToken = "token"
@@ -23,11 +23,11 @@ class OldLocalDataSource(val context: WeakReference<Context>) {
     fun deleteUser() = keyValueData.remove(keyEmail) && keyValueData.remove(keyToken)
 
     companion object {
-        var dataSource: OldLocalDataSource? = null
+        var dataSource: OldLocalUserDataSource? = null
 
-        fun init(context: Context): OldLocalDataSource? {
+        fun init(context: Context): OldLocalUserDataSource? {
             if (dataSource == null) {
-                dataSource = OldLocalDataSource(WeakReference(context))
+                dataSource = OldLocalUserDataSource(WeakReference(context))
             }
             return dataSource
         }
